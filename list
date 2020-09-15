@@ -1,0 +1,64 @@
+#pragma once
+#include <iostream>
+
+class List {
+public:
+    void push_back(int old) {//input from elements from back
+        if (head == nullptr) { //creature a new file
+            head = new Node(old);
+            tail = head;
+
+            Size++;
+        }
+        else { //creature subsequent elements
+
+            Node* current = tail;
+            current->m_pNext = new Node(old);
+            tail = current->m_pNext;
+            tail->m_pPrevious = current;
+
+            Size++;
+        }
+    }
+
+    List() {
+        Size = 0;
+        head = nullptr;
+        tail = nullptr;
+    }
+    
+    void Print() {//output
+        Node* current = head;
+        if (current->m_pNext == nullptr) {
+            std::cout << "\nOnly 1 element: " << current->m_data << "\n";
+        }
+        else {
+            std::cout << "\n" << Size << " elements in total:\n";
+            int counter = 1;
+            while (current != nullptr) {
+                std::cout << counter << " element: " << current->m_data << "\n";
+                current = current->m_pNext;
+                counter++;
+            }
+        }
+    }
+
+private:
+    class Node {
+    public:
+        Node* m_pNext; //type pointer Node on first element in list
+        Node* m_pPrevious; //type pointer Node on last element in list
+        int m_data; //integer data
+
+        Node(int data = int(), Node* pNext = nullptr, Node* pPrevious = nullptr) {
+            m_data = data;
+            m_pNext = pNext;
+            m_pPrevious = pPrevious;
+        }
+    };
+    
+    Node* head;//head coordinates
+    Node* tail;//tail coordinates
+    int Size;//quanity of elements
+
+};
